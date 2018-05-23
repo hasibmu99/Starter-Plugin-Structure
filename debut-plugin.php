@@ -40,28 +40,22 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ){
     require_once dirname( __FILE__ ) . '/vendor/autoload.php' ;
 }
 
-// Defining Constant to make life easier
-define( 'PLUGIN_PATH', plugin_dir_path( __FILE__ ) ) ;
-define( 'PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'PLUGIN', plugin_basename( __FILE__ ) );
-
 /**
- * This block of code is responsible for,
- * Activation and Deactivation of Debut Plugin
+ * This block of code is responsible for activation section
  */
 
-use Inc\Base\Activate;
-use Inc\Base\Deactivate;
-
 function debut_activate_plugin() {
-    Activate::activate();
+    Inc\Base\Activate::activate();
 }
-
-function debut_deactivate_pluign() {
-    Deactivate::deactivate();
-}
-
 register_activation_hook( __FILE__, 'debut_activate_plugin');
+
+/**
+ * This block of code is responsible for Deactivation section
+ */
+
+function debut_deactivate_plugin() {
+    Inc\Base\Deactivate::deactivate();
+}
 register_deactivation_hook( __FILE__, 'debut_deactivate_plugin');
 
 /**
