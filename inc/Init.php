@@ -26,6 +26,7 @@ final class Init {
     }
 
     protected static function instantiate( $class ) {
+        
         $service = new $class();
 
         return $service;

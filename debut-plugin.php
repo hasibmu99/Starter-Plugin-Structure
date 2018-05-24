@@ -59,8 +59,8 @@ function debut_deactivate_plugin() {
 register_deactivation_hook( __FILE__, 'debut_deactivate_plugin');
 
 /**
- * Check if class exist or not in inc/Init.php
- * Inc\\Init for Composer autoloading mechanism.
+ * If Inside Inc Folder exist the class called Init
+ * Then call the mentioned method to register new class.
  */
 if ( class_exists( 'Inc\\Init' ) ){
     Inc\Init::register_services();
