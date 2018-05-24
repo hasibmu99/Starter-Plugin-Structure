@@ -9,3 +9,6 @@ Full list of sections and features we will build during the series of Tutorials
 * Post and Gallery Integration
 * Testimonial section : Comment in the Front-end, Admin can approve comments, select which comment to display.
 * Custom Template sections.
+* Ajax based Login/Register system
+* Membership protected area
+* Chat system
