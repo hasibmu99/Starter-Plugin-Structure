@@ -1,0 +1,1 @@
+<h1>Welcome to taxonomy manager page :) </h1>

@@ -1,1 +1,1 @@
-<h1>Welcome to Debut Plugin</h1>
+<h1>Something is going very awesome to you !</h1>

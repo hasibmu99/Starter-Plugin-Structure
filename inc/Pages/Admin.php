@@ -5,45 +5,78 @@
 
 namespace Inc\Pages;
 
-use \Inc\Base\BaseController;
-
 use \Inc\Api\SettingsApi;
+use \Inc\Base\BaseController;
+use \Inc\Api\Callbacks\AdminCallbacks;
+
+
 
 class Admin extends BaseController {
 
     public $settings;
+
+    public $callbacks;
+    
     public $pages = array();
 
-    public function __construct() {
-        
+    public $subpages = array();
+
+    public function register() {
+
         $this->settings = new SettingsApi();
+
+        $this->callbacks = new AdminCallbacks();
+
+        $this->setPages();
+
+        $this->setSubPages();
+
+        $this->settings->addPages( $this->pages )->withSubPages()->addSubPages( $this->subpages )->register();
+    }
+
+    public function setPages() {
 
         $this->pages = [
 
             [
-                'page_title'    => 'Whatever Plugin',
+                'page_title'    => 'Debut Plugin',
                 'menu_title'    => 'Debut',
                 'capability'    => 'manage_options',
-                'menu_slug'     => 'whatever_plugin',
-                'callback'      => function(){echo '<h1>Hello world</h1>' ;},
+                'menu_slug'     => 'debut_plugin',
+                'callback'      => array($this->callbacks, 'adminDashboard'),
                 'icon_url'      => 'dashicons-admin-home',
                 'position'      => 110
             ],
-            [
-                'page_title'    => 'Test Plugin',
-                'menu_title'    => 'Test',
-                'capability'    => 'manage_options',
-                'menu_slug'     => 'test_plugin',
-                'callback'      => function(){echo '<h1>Test page</h1>' ;},
-                'icon_url'      => 'dashicons-store',
-                'position'      => 111
-            ]
-            
         ];
     }
 
-    public function register() {
-        $this->settings->addPages( $this->pages )->register();
+    public function setSubPages() {
+         $this->subpages = [
+            [
+                'parent_slug'   => 'debut_plugin',
+                'page_title'    => 'Custom Post Type',
+                'menu_title'    => 'CPT',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'debut_cpt',
+                'callback'      => array( $this->callbacks, 'cptManager')
+            ],
+            [
+                'parent_slug'   => 'debut_plugin',
+                'page_title'    => 'Taxonomy',
+                'menu_title'    => 'Taxonomy',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'debut_taxonomy',
+                'callback'      => array( $this->callbacks, 'taxonomyManager')
+            ],
+            [
+                'parent_slug'   => 'debut_plugin',
+                'page_title'    => 'Custom Widgets',
+                'menu_title'    => 'Widgets',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'debut_widget',
+                'callback'      => array( $this->callbacks, 'widgetManager')
+            ]
+        ];
     }
 
 }
